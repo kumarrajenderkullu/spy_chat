@@ -1,4 +1,8 @@
+from steganography.steganography import Steganography
 from add_spy_user import add_spy_user
+from datetime import datetime
+from os import listdir
+from os.path import isfile, join
 add_user = {
             'spy_name':["JON","MANU","RAJ","TOM","DOM"],
             'spy_age':["22","23","24","43","34"],
@@ -6,7 +10,8 @@ add_user = {
             'spy_status':["hloo","hiiii","I am Rjo"],
             'spy_user_name':["JON","MANU","RAJ","TOM","DOM"],
             'spy_user_password':["121","212","123","111","222"],
-            'friend':[["MANU","RJO"],["JON","RJO"],["JON","MANU"],[],[]]
+            'friend':[["MANU","RJO"],["JON","RJO"],["JON","MANU"],[],[]],
+            'spy_chat':[[],[],[],[],[]]
         }
 
 
@@ -62,9 +67,19 @@ def friends(index):
                 i = i + 1
     select_friend=raw_input("\nSelect a friend :\t")
     select_friend=int(select_friend)
-    i = len(add_user['friend'][index]) -1
-    if select_friend<=len(add_user["spy_name"]):
-        add_user['friend'][index].append(add_user["spy_name"][select_friend-1])
+    i = len(add_user['friend'][index])
+    j=0
+    if select_friend<=len(add_user["friend"][index]):
+        key=0
+        print add_user['friend'][index][select_friend]==add_user['friend'][index][i-1]
+        print "passsssssssssssssssssssss"
+        while i>0:
+            if add_user['friend'][index][select_friend]==add_user['friend'][index][i-1]:
+                key=1
+            print add_user['friend'][index][select_friend] == add_user['friend'][index][i - 1]
+            i=i-1
+        if key==0:
+            add_user['friend'][index].append(add_user["spy_name"][select_friend-1])
         print "Congractulation %s and you are now Friends" %add_user["spy_name"][select_friend-1]
         temp1=1
         for temp in add_user['friend'][index]:
@@ -107,12 +122,71 @@ def delete(index):
 
 
 
+def ChatMessage(message,sent_by_me):
+        message = message
+        time = datetime.now()
+        sent_by_me = sent_by_me
 
 
 
+def send_message(index):
+    temp1=1
+    print "Select a friend to whom you want to send message \n"
+    for temp in add_user['friend'][index]:
+        print"\n\t%d.\t%s" % (temp1, temp)
+        temp1 = temp1 + 1
+    print "\n"
+    friend_choice=raw_input("Select a Friend :\t")
+    friend_choice = int(friend_choice)
+    img_path = "original_images\\1"
+    img_name = ".jpg"
+    select_file = [f for f in listdir("original_images\\") if isfile(join("original_images\\", f))]
+    print select_file
+    print ("Select from Above Images Name : ")
+    X = raw_input("What is the name of the Image : ")
+    original_image = img_path + X + img_name
+    try:
+        counter = 1
+        output_path = "encrypted_images\%d.jpg" % counter
+        text = raw_input("What do you want to Say : ")
+        Steganography.encode(original_image, output_path, text)
+        counter = counter + 1
+    except:
+        print "Wrong Image Name"
+
+    new_chat = ChatMessage(text, True)
+
+    add_user['spy_chat'][index].append(new_chat)
+
+    print "Secret Message is sent inside the Image."
 
 
+def read_message(index):
+    temp1 = 1
+    print "Select a friend to whom you want to send message \n"
+    for temp in add_user['friend'][index]:
+        print"\n\t%d.\t%s" % (temp1, temp)
+        temp1 = temp1 + 1
+    print "\n"
+    friend_choice = raw_input("Select a Friend :\t")
+    sender = int(friend_choice)
+    img_path = "original_images\\"
 
+    img_path = "encrypted_images\\"
+    img_name = ".jpg"
+    select_file = [f for f in listdir("encrypted_images\\") if isfile(join("encrypted_images\\", f))]
+    print select_file
+    X = raw_input("What is the name of the Image that you want to decode: ")
+    output_path = img_path + X + img_name
+
+    secret_text = Steganography.decode(output_path)
+
+    new_chat = ChatMessage(secret_text, False)
+
+    friends[sender].chats.append(new_chat)
+
+    print "Secret Message has been decoded!"
+    print "\n\t\t****decoded Message Is : %s****" % secret_text
 
 
 
@@ -146,7 +220,15 @@ while (spy == 1):
                             friends(i)
                         elif spy_choice == 3:
                             delete(i)
-                        #elif spy_choice == 4:
+                        elif spy_choice == 4:
+                            print "What do you want to do\n\t1.\tSend Encrypted Message.\n\t2.\tReceive Decrypted Message.\n"
+                            choice=raw_input("Enter your choice :\t")
+                            if choice==1:
+                                send_message(i)
+                            elif choice==2:
+                                read_message(index)
+                            else:
+                                print "\tYou have entered a INVALID choice"
                         elif spy_choice == 5:
                             print "Come back Soon"
                             exit(0)
