@@ -1,2 +1,3 @@
-.idea/
-*[Pp].pyc
+.idea*
+*.[Pp]yc
+*.[Pp]
