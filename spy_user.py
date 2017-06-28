@@ -4,9 +4,9 @@ add_user = {
             'spy_age':["22","23","24","43","34"],
             'spy_rating':["4","5","5"],
             'spy_status':["hloo","hiiii","I am Rjo"],
-            'spy_user_name':["JON","MANU","RAJ"],
-            'spy_user_password':["121","212","123","111"],
-            'friend':[["MANU","RJO"],["JON","RJO"],["JON","MANU"]]
+            'spy_user_name':["JON","MANU","RAJ","TOM","DOM"],
+            'spy_user_password':["121","212","123","111","222"],
+            'friend':[["MANU","RJO"],["JON","RJO"],["JON","MANU"],[],[]]
         }
 
 
@@ -42,15 +42,16 @@ def add_status(status):
 
 
 
+
 def friends(index):
-    if len(add_user['friend'][index])<=1:
+    if len(add_user['friend'][index])<=0:
         print "You have no friend currently"
     print "Select peoples you know :\t"
+    temp=1
     counter=1
     i=0
     while i<len(add_user["spy_name"]):
-        if add_user["spy_name"][i]==add_user['friend'][index]:
-            temp=temp+1
+        if add_user["spy_name"][i]==add_user['friend'][index] or add_user['friend'][index]== add_user["spy_name"][i] :
             i=i+1
         else:
             if add_user["spy_name"][i]==add_user['spy_name'][index]:
@@ -61,23 +62,41 @@ def friends(index):
                 i = i + 1
     select_friend=raw_input("\nSelect a friend :\t")
     select_friend=int(select_friend)
+    i = len(add_user['friend'][index]) -1
     if select_friend<=len(add_user["spy_name"]):
         add_user['friend'][index].append(add_user["spy_name"][select_friend-1])
         print "Congractulation %s and you are now Friends" %add_user["spy_name"][select_friend-1]
+        temp1=1
         for temp in add_user['friend'][index]:
-            print"%s"%(temp)
+            print"\n\t%d.\t%s"%(temp1,temp)
+            temp1=temp1+1
+        print "\n"
     else:
         print "\n\t##Please enter a Valid option##"
     return add_user['friend'][index]
 
 
 def delete(index):
-    if len(add_user['friend'][index])<=1:
+    if len(add_user['friend'][index])==0:
         print "You have no friend currently"
+    counter=1
     for temp in add_user['friend'][index]:
-        print"%s" % (temp)
+        print"\n\t%d\t%s" % (counter,temp)
+        counter=counter+1
     select_friend = raw_input("\nSelect a friend :\t")
     select_friend = int(select_friend)
+    i=len(add_user['friend'][index])
+    if i==0:
+        print "You have No friend to Delete\n"
+    else:
+        temp1 = 1
+        if temp==add_user['friend'][index][temp1-1]:
+            add_user['friend'][index].remove(add_user["spy_name"][select_friend])
+        for temp in add_user['friend'][index]:
+            print"\n\t%d.\t%s" % (temp1, temp)
+            temp1 = temp1 + 1
+
+
 
 
 
