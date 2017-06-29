@@ -1,13 +1,15 @@
+import sys
+from termcolor import colored, cprint                                       #used for adding color to the text
 from steganography.steganography import Steganography                       #used for encrypting and decrypting the data
 from add_spy_user import add_spy_user                                       #used for adding details of new user on to the dictionary
 from datetime import datetime                                               #used for adding date and time functionalty
 from os import listdir                                                      #used for fatching files name from the system
 from os.path import isfile, join                                            #used for fatching files name from the system
 add_user = {                                                                #Dictionary for storing hole of the data of the Spy_chat
-            'spy_name':["JON","MANU","RAJ","TOM","DOM"],
+            'spy_name':["Mr. JON","Mr. MANU","Mr. RAJ","Mr. TOM","Mr. DOM"],
             'spy_age':["22","23","24","43","34"],
-            'spy_rating':["4","5","5"],
-            'spy_status':["hloo","hiiii","I am Rjo"],
+            'spy_rating':["4","5","5","4","3"],
+            'spy_status':["I am Jon","I am Khiladi","I love Tinka","",""],
             'spy_user_name':["JON","MANU","RAJ","TOM","DOM"],
             'spy_user_password':["121","212","123","111","222"],
             'friend':[["MANU","RJO"],["JON","RJO"],["JON","MANU"],[],[]],
@@ -79,6 +81,7 @@ def friends(index):
     counter=1
     list=[]
     i=0                                                                          #temp variable used as a counter
+    print "\n\tS.No.\tUser's\t\t\tStatus"
     while i<len(add_user["spy_name"]):
         if add_user["spy_name"][i]==add_user['friend'][index] or add_user['friend'][index]== add_user["spy_name"][i] :
             i=i+1
@@ -86,7 +89,7 @@ def friends(index):
             if add_user["spy_name"][i]==add_user['spy_name'][index]:
                 i=i+1
             else:
-                print"\n\t%d\t%s" % (counter, add_user["spy_name"][i])
+                print"\n\t %d\t  %s\t\t%s" % (counter, add_user["spy_name"][i], add_user["spy_status"][i])
                 counter = counter + 1
                 list.append(add_user["spy_name"][i])
                 i = i + 1
@@ -153,13 +156,20 @@ def delete(index):
 #------------------------------------------------------------------------function for sending the date and time details--------------------------------------------------------
 
 
-def ChatMessage(message,sent_by_me):
-        message = message
-        time = datetime.now()
-        time=str(time)
-        sent_by_me = sent_by_me
-        sent_by_me=str(sent_by_me)
-        msg=message+" ("+time+") "+sent_by_me                                   #concatinating message ,time and booliab value by type caasting
+def ChatMessage(message,index):
+        message = colored(message, 'red')
+        t=datetime.now()
+        date = t.strftime("%b %d %Y")
+        time = t.strftime("%H %M %S")
+        #date=datetime.date("%b %d,%Y")
+        #date=str(date)
+        #date=colored(date, 'green')
+        #time = datetime.time("%H:%M:%S")
+        #time=str(time)
+        date = colored(date, 'blue')
+        time = colored(time, 'green')
+        friend = colored(add_user['spy_name'][index], 'blue')
+        msg=message+"  ("+date+"  "+time+")  by  "+friend                                  #concatinating message ,time and booliab value by type caasting
         return msg
 
 
@@ -179,7 +189,7 @@ def send_message(index):
     original_image = img_path + X + img_name                                    #variable used for storing the path of the image
     try:
         counter = 1
-        output_path = "encrypted_images\%s.jpg" % datetime.second
+        output_path = "encrypted_images\%d.jpg" %(counter)
         i=3
         while i>0:
             text = raw_input("What do you want to Say : ")
@@ -208,9 +218,9 @@ def send_message(index):
     except:
         print "Wrong Image Name"
 
-    new_chat = ChatMessage(text, True)                                              #chat is updated with new chat by appending
+    new_chat = ChatMessage(text,index)                                              #chat is updated with new chat by appending
 
-    add_user['spy_chat'][index].append(new_chat)
+    #add_user['spy_chat'][index].append(new_chat)
 
     print "\n\tSecret Message is sent inside the Image.\n"
     return add_user['spy_chat'][index]
@@ -245,7 +255,7 @@ def chat_history(index):
     friend_choice = search_friend(index)
     temp1 = 1                                                                       #temp variable used as a counter
     print "Select a friend to whom chat history you want to see \n"
-    print len(add_user['spy_chat'][index])
+    #print len(add_user['spy_chat'][index])
     if len(add_user['spy_chat'][index])>0:
         for temp in add_user['spy_chat'][index]:
             print"\n\t%d.\t%s" % (temp1, temp)
@@ -269,8 +279,6 @@ while (spy == 1):
         spy_password = raw_input("Password\t:\t")
         spy_login=spy_login.upper()
         i=0
-        print spy_login
-        print spy_password
         while i <len(add_user['spy_name']):
             if add_user['spy_user_name'][i] ==spy_login  and add_user['spy_user_password'][i] == spy_password:
                 print ("\n\tWelocome %s\n" %(add_user['spy_name'][i]) )             #login details have to assign
