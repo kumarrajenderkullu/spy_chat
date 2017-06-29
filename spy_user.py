@@ -283,7 +283,7 @@ while (spy == 1):
             if add_user['spy_user_name'][i] ==spy_login  and add_user['spy_user_password'][i] == spy_password:
                 print ("\n\tWelocome %s\n" %(add_user['spy_name'][i]) )             #login details have to assign
                 while 1:
-                    print "What do you want to do?\n\t1.\tStatus Change.\n\t2.\tAdd Friend.\n\t3.\tDelete Friend.\n\t4.\tSend Message.\n\t5.\tClose."
+                    print "What do you want to do?\n\t1.\tStatus Change.\n\t2.\tAdd Friend.\n\t3.\tDelete Friend.\n\t4.\tMessage related opration.\n\t5.\tClose."
                     spy_choice=int(raw_input("Enter your choice :\t"))
                     if int(spy_choice)>0:
 
