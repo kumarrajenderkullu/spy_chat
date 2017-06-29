@@ -61,7 +61,7 @@ def add_status(status):
         current_status=raw_input("Enter your new status :\t")
         #status_list.append(current_status)
     else:
-        print "Sorry Dude! You have not enter a valid option"
+        print "\n\tSorry Dude! You have not enter a valid option"
     return current_status                                                   #
 
 
@@ -101,9 +101,9 @@ def friends(index):
             i=i-1
         if key==0:
             add_user['friend'][index].append(list[select_friend])
-            print "Congractulation %s and you are now Friends" %add_user["spy_name"][select_friend-1]
+            print "\n\tCongractulation %s and you are now Friends" %add_user["spy_name"][select_friend-1]
         else:
-            print "This friend is already in your friend list "
+            print "\n\tThis friend is already in your friend list "
         temp1=1                                                                #temp variable used as a counter
         for temp in add_user['friend'][index]:
             print"\n\t%d.\t%s"%(temp1,temp)
@@ -124,7 +124,7 @@ def friends(index):
 
 def delete(index):
     if len(add_user['friend'][index])==0:
-        print "You have no friend currently"
+        print "\nYou have no friend currently"
     counter=1                                                                 #temp variable used as a counter
     for temp in add_user['friend'][index]:
         print"\n\t%d\t%s" % (counter,temp)
@@ -179,16 +179,24 @@ def send_message(index):
     original_image = img_path + X + img_name                                    #variable used for storing the path of the image
     try:
         counter = 1
-        output_path = "encrypted_images\%d.jpg" % counter
+        output_path = "encrypted_images\%s.jpg" % datetime.second
         i=3
         while i>0:
             text = raw_input("What do you want to Say : ")
             if len(text)<=100:
-                Steganography.encode(original_image, output_path, text)   #encription process is used here
-                if text=="SOS":
+                if text.upper()=="SOS":
                     text="Save our Souls"
                 if text.upper()=="SAVE ME":
                     text="Please save me, I am in danger"
+                if text.upper()=="HELP ME":
+                    text="Please save me, I am in danger"
+                if text.upper()=="HURRY UP":
+                    text = "Please come fast, There is an Emergency"
+                if text.upper()=="LOL":
+                    text="Lot's of LOVE "
+                if text.upper()=="ILU":
+                    text="I Love You"
+                Steganography.encode(original_image, output_path, text)   #encription process is used here
                 i=0
             elif len(text)==0:
                 print "\n\tPlease don't make message field empty"
@@ -204,7 +212,7 @@ def send_message(index):
 
     add_user['spy_chat'][index].append(new_chat)
 
-    print "Secret Message is sent inside the Image."
+    print "\n\tSecret Message is sent inside the Image.\n"
     return add_user['spy_chat'][index]
 
 
@@ -227,7 +235,7 @@ def read_message(index):
     new_chat = ChatMessage(secret_text, False)                                      #chat is updated with new chat by appending
     add_user['spy_chat'][index].append(new_chat)
     print "Secret Message has been decoded!"
-    print "\n\t\t****decoded Message Is : %s****" % secret_text
+    print "\n\t\t****decoded Message Is : %s****\n" % secret_text
     return add_user['spy_chat'][index]
 
 
