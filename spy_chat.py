@@ -26,3 +26,32 @@ friend_three = Spy('No', 'Dr.', 4.95, 37)
 
 
 friends = [friend_one, friend_two, friend_three]
+
+
+
+j=0
+    key=0
+    while i<len(add_user['spy_name'][index]):
+        while j<len(add_user['friend'][index]):
+            if add_user['friend'][index][j]==add_user['spy_name'][i]:
+                key=0
+                break
+            else:
+                key=1
+            j = j + 1
+        if key==0:
+            list.append(add_user['spy_name'][i])
+        i=i+1
+    print list
+
+
+
+key=0
+        print add_user['friend'][index][select_friend]==add_user['friend'][index][i-1]
+        print "passsssssssssssssssssssss"
+        while i>0:
+            if add_user['friend'][index][select_friend]==add_user['friend'][index][i-1]:
+                key=1
+            print add_user['friend'][index][select_friend] == add_user['friend'][index][i - 1]
+            i=i-1
+        if key==0:
