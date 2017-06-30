@@ -159,7 +159,7 @@ def delete(index):
 def ChatMessage(message,index):
         message = colored(message, 'red')
         t=datetime.now()
-        date = t.strftime("%b %d %Y")
+        date = t.strftime("%b %d %Y")                                                      #converting date and time to self formated
         time = t.strftime("%H %M %S")
         #date=datetime.date("%b %d,%Y")
         #date=str(date)
@@ -168,7 +168,7 @@ def ChatMessage(message,index):
         #time=str(time)
         date = colored(date, 'blue')
         time = colored(time, 'green')
-        friend = colored(add_user['spy_name'][index], 'blue')
+        friend = colored(add_user['spy_name'][index], 'blue')                              #coloring of date and time text
         msg=message+"  ("+date+"  "+time+")  by  "+friend                                  #concatinating message ,time and booliab value by type caasting
         return msg
 
@@ -192,7 +192,7 @@ def send_message(index):
         output_path = "encrypted_images\%d.jpg" %(counter)
         i=3
         while i>0:
-            text = raw_input("What do you want to Say : ")
+            text = raw_input("What do you want to Say : ")                        #special messages
             if len(text)<=100:
                 if text.upper()=="SOS":
                     text="Save our Souls"
@@ -206,6 +206,8 @@ def send_message(index):
                     text="Lot's of LOVE "
                 if text.upper()=="ILU":
                     text="I Love You"
+                if text.upper("JSON"):
+                    text="Java Script Object Notation"
                 Steganography.encode(original_image, output_path, text)   #encription process is used here
                 i=0
             elif len(text)==0:
