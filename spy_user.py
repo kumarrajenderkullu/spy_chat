@@ -206,7 +206,7 @@ def send_message(index):
                     text="Lot's of LOVE "
                 if text.upper()=="ILU":
                     text="I Love You"
-                if text.upper("JSON"):
+                if text.upper()=="JSON":
                     text="Java Script Object Notation"
                 Steganography.encode(original_image, output_path, text)   #encription process is used here
                 i=0
